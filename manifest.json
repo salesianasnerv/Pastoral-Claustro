@@ -1,0 +1,26 @@
+{
+  "name": "Pastoral Claustro | Salesianas Nervión",
+  "short_name": "Pastoral",
+  "description": "Recursos pastorales para el claustro de Salesianas Nervión",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#009abb",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "./",
+  "lang": "es"
+}
