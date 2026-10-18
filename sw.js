@@ -1,5 +1,5 @@
 // Cambia la versión cuando modifiques index.html para que los móviles cojan la nueva.
-const CACHE_NAME = 'pastoral-claustro-v3';
+const CACHE_NAME = 'pastoral-claustro-v4';
 const ARCHIVOS = [
   './',
   './index.html',
