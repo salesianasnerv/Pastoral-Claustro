@@ -1,14 +1,16 @@
 // Cambia la versión cuando modifiques index.html para que los móviles cojan la nueva.
-const CACHE_NAME = 'pastoral-claustro-v2';
+const CACHE_NAME = 'pastoral-claustro-v3';
 const ARCHIVOS = [
   './',
   './index.html',
   './manifest.json',
   './logo.svg',
-  './favicon.png',
+  './favicon-32.png',
+  './favicon-48.png',
   './icon-180.png',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './icon-maskable-512.png'
 ];
 
 self.addEventListener('install', (e) => {
