@@ -72,9 +72,9 @@ header.solo-logo .logo { height: 56px; display: block; }
 .sel-curso select, .filtros input, .filtros select { font-size: 14px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
 
 /* Temáticas */
-.tematicas { display: flex; gap: 8px; overflow-x: auto; padding: 12px max(16px, calc((100% - var(--ancho)) / 2 + 16px)) 4px; scrollbar-width: thin; }
+.tematicas { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px max(16px, calc((100% - var(--ancho)) / 2 + 16px)) 4px; }
 .tem { --c: var(--azul); display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--border);
-  background: var(--card); color: var(--text); font-weight: 600; font-size: 14px; white-space: nowrap; }
+  background: var(--card); color: var(--text); font-weight: 600; font-size: 14px; max-width: 100%; text-align: left; }
 .tem .pend { font-size: 12px; font-weight: 700; background: var(--lista); color: var(--text-muted); border-radius: 999px; padding: 1px 7px; }
 .tem:hover { border-color: var(--c); }
 .tem.activa { background: var(--c); border-color: var(--c); color: #fff; }
@@ -175,6 +175,7 @@ button.etq { opacity: .35; } button.etq.on { opacity: 1; box-shadow: 0 0 0 2px v
 footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 18px 16px 30px; margin-top: 1rem; }
 
 @media (max-width: 640px) {
+  .tematicas { gap: 6px; } .tem { padding: 6px 11px; font-size: 13.5px; gap: 6px; }
   header.solo-logo .logo { height: 48px; }
   .v-cuerpo { grid-template-columns: 1fr; }
   .lista { width: 84vw; }
