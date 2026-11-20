@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tablero del equipo | Pastoral · Salesianas Nervión</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tablero de tareas del equipo de Pastoral de Salesianas Nervión. Solo para el equipo de Pastoral.">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#009abb">
+<link rel="apple-touch-icon" sizes="180x180" href="../icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tablero.css">
+<!-- Barra «Volver al portal»: solo sale si se llega desde el portal del profesorado -->
+<script src="https://claustro-utilidades.vercel.app/barra.js" data-titulo="Pastoral" defer></script>
+</head>
+<body>
+
+<header class="solo-logo"><a href="../"><img class="logo" src="../logo.svg" alt="Salesianas Nervión"></a></header>
+<div class="franja">
+  <span class="quien"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span id="quien">Equipo de Pastoral</span></span>
+  <div class="franja-acc">
+    <button type="button" class="franja-btn" id="salir" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Cerrar sesión</button>
+  </div>
+</div>
+<section class="presenta">
+  <div class="cartel" role="navigation" aria-label="Estás en"><a href="https://claustro-utilidades.vercel.app/" title="Ir al portal de utilidades del profesorado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Utilidades</a><span class="sep" aria-hidden="true">|</span><a href="../" title="Ir a la web de Pastoral">Pastoral</a><span class="sep" aria-hidden="true">|</span><span>Tablero</span></div>
+  <div class="presenta-cab">
+    <span class="presenta-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v10"/></svg></span>
+    <div><h1>Tablero del equipo de Pastoral</h1>
+      <p>Tareas pendientes de cada campaña o actividad, con enlaces y documentos. Solo lo ve el equipo de Pastoral.</p></div>
+  </div>
+</section>
+
+<!-- Pantallas -->
+<div class="pantalla" id="p-cargando"><div class="caja-centro"><div class="girando" aria-hidden="true"></div><p>Cargando…</p></div></div>
+
+<div class="pantalla" id="p-entrar" hidden>
+  <div class="caja-centro">
+    <div class="grande" aria-hidden="true">🔒</div>
+    <h2>Solo para el equipo de Pastoral</h2>
+    <p>Entra con tu cuenta del colegio (Microsoft 365).</p>
+    <button class="btn pri" id="entrar" type="button"><svg viewBox="0 0 23 23" width="18" height="18" aria-hidden="true"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>Entrar con Microsoft 365</button>
+  </div>
+</div>
+
+<div class="pantalla" id="p-sin-permiso" hidden>
+  <div class="caja-centro">
+    <div class="grande" aria-hidden="true">🔒</div>
+    <h2>Solo para el equipo de Pastoral</h2>
+    <p>Has entrado como <b id="sp-email"></b>, que no está en el grupo «Pastoral» de Microsoft 365.</p>
+    <p>Si crees que deberías entrar, pídeselo a la coordinación de Pastoral o escribe a web@nervion.salesianas.org.</p>
+    <p><a class="btn" href="../">Volver a Pastoral</a> <button class="btn" type="button" data-salir>Entrar con otra cuenta</button></p>
+  </div>
+</div>
+
+<div class="pantalla" id="p-tablero" hidden>
+  <div class="aviso-curso" id="aviso-curso" hidden></div>
+  <div class="barra-sup">
+    <label class="sel-curso">Curso <select id="curso"></select></label>
+    <button class="btn sec" type="button" id="nuevo-curso" hidden>🗓️ Empezar curso nuevo</button>
+  </div>
+  <nav class="tematicas" id="tematicas" aria-label="Temáticas"></nav>
+  <div class="barra-tablero" id="barra-tablero">
+    <h2 id="tit-tablero"></h2><span class="desc" id="desc-tablero"></span>
+    <button class="btn-ico" type="button" id="editar-tematica" title="Cambiar nombre, icono, color u orden">✏️</button>
+    <div class="filtros">
+      <input type="search" id="buscar" placeholder="Buscar tarjeta…" aria-label="Buscar tarjeta">
+      <select id="filtro-persona" aria-label="Filtrar por persona"><option value="">Todas las personas</option></select>
+      <button class="btn sec" type="button" id="ver-archivadas">Archivadas</button>
+    </div>
+  </div>
+  <main class="tablero" id="tablero"></main>
+  <div class="vacio" id="sin-tematicas" hidden>Todavía no hay temáticas en este curso.</div>
+</div>
+
+<footer>Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</footer>
+
+<div class="velo" id="velo" hidden><div class="ventana" id="ventana" role="dialog" aria-modal="true"></div></div>
+<div class="velo" id="velo2" hidden><div class="ventana pequena" id="ventana2" role="dialog" aria-modal="true"></div></div>
+<div class="aviso" id="aviso" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="tablero.js"></script>
+</body>
+</html>

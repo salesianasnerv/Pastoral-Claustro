@@ -342,6 +342,16 @@
   .cartel a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
   .cartel svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
   .cartel .sep { opacity: .6; }
+  /* Separador «Equipo de Pastoral» (zona con inicio de sesión) */
+  .seccion-equipo { margin-top: 2.4rem; }
+  .sep-equipo { display: flex; align-items: center; gap: 14px; color: var(--azul-oscuro); font-weight: 700; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; }
+  .sep-equipo::before, .sep-equipo::after { content: ""; flex: 1; height: 2px; background: rgba(0, 154, 187, .35); border-radius: 999px; }
+  .sep-equipo span { display: inline-flex; align-items: center; gap: 7px; }
+  .sep-equipo svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .sep-desc { text-align: center; color: var(--text-muted); font-size: .9rem; margin: .5rem 0 1.1rem; }
+  .tile-lock { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; font-size: .75rem; font-weight: 700; color: var(--azul-oscuro);
+    background: rgba(0, 154, 187, .12); border-radius: 999px; padding: 2px 9px; margin-top: .4rem; }
+  @media (max-width: 520px) { .tile-lock { display: none; } }
 </style>
   <!-- Barra «Volver al portal»: solo sale si se llega desde el portal del profesorado -->
   <script src="https://claustro-utilidades.vercel.app/barra.js" data-titulo="Pastoral" defer></script>
@@ -363,7 +373,7 @@
     <span class="presenta-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M7 8h10"/></svg></span>
     <div>
       <h1>Pastoral</h1>
-      <p>Lema, Buenos días, Bocadillo Solidario, Adviento y otras propuestas de Pastoral.</p>
+      <p>Lema, Buenos días, Bocadillo Solidario, Adviento y otras propuestas de Pastoral. Abajo, el tablero de trabajo del equipo de Pastoral.</p>
     </div>
   </div>
   <div class="presenta-info">
@@ -377,12 +387,26 @@
         <li><b>Angelito Burlón:</b> cuento, vídeo y proyectos de Adviento (Infantil y 1.º a 3.º de Primaria).</li>
       </ul>
     </details>
+    <details class="info-bloque">
+      <summary><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Equipo de Pastoral <small>Acceso: Microsoft 365 del colegio · grupo «Pastoral»</small></span></summary>
+      <ul>
+        <li><b>Tablero del equipo:</b> temáticas, listas y tareas pendientes con enlaces y adjuntos, organizado por cursos.</li>
+        <li><b>Bocadillo solidario:</b> organización, compra, listados y balance.</li>
+        <li>Quien no esté en el grupo verá el aviso «Solo para el equipo de Pastoral».</li>
+      </ul>
+    </details>
   </div>
 </section>
 
 <div class="wrap">
 
   <main class="grid" id="grid"></main>
+
+  <section class="seccion-equipo" aria-labelledby="tit-equipo">
+    <div class="sep-equipo"><span id="tit-equipo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Equipo de Pastoral</span></div>
+    <p class="sep-desc">Solo para el grupo «Pastoral» de Microsoft 365. Te pedirá iniciar sesión con tu cuenta del colegio.</p>
+    <div class="grid" id="grid-equipo"></div>
+  </section>
 
   <footer>Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</footer>
 
@@ -445,6 +469,30 @@
       <p class="tile-desc">${r.desc}</p>
       ${r.url ? '<span class="tile-go">Abrir →</span>' : ''}`;
     grid.appendChild(el);
+  });
+
+  // Zona del equipo de Pastoral: se ve siempre, pero el tablero pide iniciar sesión y solo deja pasar al grupo Pastoral.
+  const EQUIPO = [
+    {
+      icono: '🗂️',
+      titulo: 'Tablero del equipo',
+      desc: 'Temáticas, listas y tareas pendientes con enlaces y adjuntos, organizado por cursos.',
+      url: 'tablero/',
+      color: 'azul'
+    }
+  ];
+  const gridEquipo = document.getElementById('grid-equipo');
+  EQUIPO.forEach(r => {
+    const el = document.createElement('a');
+    el.className = 'tile ' + (r.color || 'azul');
+    el.href = r.url;
+    el.innerHTML = `
+      <div class="tile-icon" aria-hidden="true">${r.icono}</div>
+      <h2 class="tile-title">${r.titulo}</h2>
+      <p class="tile-desc">${r.desc}</p>
+      <span class="tile-lock">🔒 Solo equipo de Pastoral</span>
+      <span class="tile-go">Entrar →</span>`;
+    gridEquipo.appendChild(el);
   });
 
   // PWA: registro del service worker (permite instalar la web como app y abrirla sin conexión)
